@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using CivicAction.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<CivicActionContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("CivicActionContext") ?? throw new InvalidOperationException("Connection string 'ProjectContext' not found.")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("CivicActionContext") ?? throw new InvalidOperationException("Connection string 'CivicActionContext' not found.")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CivicActionContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using CivicAction.Models;
 
 namespace CivicAction.Data;
 
-public class CivicActionContext : DbContext
+public class CivicActionContext : IdentityDbContext
 {
     public CivicActionContext(DbContextOptions<CivicActionContext> options)
         : base(options) { }
@@ -15,10 +16,19 @@ public class CivicActionContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder.Entity<Account>().ToTable("Account");
         modelBuilder.Entity<Project>().ToTable("Project");
         modelBuilder.Entity<Update>().ToTable("Update");
         modelBuilder.Entity<Verification>().ToTable("Verification");
+
+        // Account -> IdentityUser relationship
+        modelBuilder.Entity<Account>()
+            .HasOne(a => a.IdentityUser)
+            .WithMany()
+            .HasForeignKey(a => a.IdentityUserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Verification.AdminID is a FK to Account, but Account also has
         // a Projects collection - so we need to tell EF which FK goes where

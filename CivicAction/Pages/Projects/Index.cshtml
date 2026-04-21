@@ -2,14 +2,21 @@
 @model CivicAction.Pages.Projects.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Projects";
 }
 
-<h1>Index</h1>
+<h1>My Projects</h1>
+@if (Model.UserAccount != null)
+{
+    <p class="text-muted">Welcome, @Model.UserAccount.FirstMidName @Model.UserAccount.LastName</p>
+}
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+@if (Model.Project != null && Model.Project.Count > 0)
+{
 <table class="table">
     <thead>
         <tr>
@@ -26,16 +33,7 @@
                 @Html.DisplayNameFor(model => model.Project[0].Organization)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Project[0].Start)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].End)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Project[0].IsApproved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project[0].Student)
             </th>
             <th></th>
         </tr>
@@ -44,38 +42,40 @@
 @foreach (var item in Model.Project) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <strong>@Html.DisplayFor(modelItem => item.Title)</strong>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Hours)
+                @Html.DisplayFor(modelItem => item.Hours) hrs
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Organization)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.End)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
-            <td>
-                @if (item.Student != null)
+                @if (item.IsApproved)
                 {
-                    @Html.DisplayFor(modelItem => item.Student.FirstMidName) @Html.DisplayFor(modelItem => item.Student.LastName)
+                    <span class="badge bg-success">Approved</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning">Pending</span>
                 }
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>You don't have any projects yet. <a asp-page="Create">Create your first project</a></p>
+    </div>
+}

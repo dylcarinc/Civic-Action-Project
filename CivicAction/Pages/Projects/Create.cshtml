@@ -60,17 +60,13 @@
                 <input asp-for="Project.End" class="form-control" type="date" />
                 <span asp-validation-for="Project.End" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Project.StudentID" class="control-label"></label>
-                <select asp-for="Project.StudentID" class="form-control" asp-items="ViewBag.StudentID">
-                    <option value="">-- Select a Student --</option>
-                </select>
-                <span asp-validation-for="Project.StudentID" class="text-danger"></span>
-            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Project.IsApproved" />
                     @Html.DisplayNameFor(model => model.Project.IsApproved)
+                </label>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
