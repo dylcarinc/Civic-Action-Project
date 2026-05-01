@@ -8,8 +8,13 @@ html {
   }
 }
 
+@font-face {
+  font-family: 'AvenirLight.ttf';
+  src: url('Fonts/AvenirLight.ttf');
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem white;
 }
 
 html {
@@ -17,16 +22,45 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-  color: blue;
+h1 {
+  font-weight: 300;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
+body {
+  margin-bottom: 60px;
+  color: black;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.form-group, .form-group mt-2 {
+  margin-bottom: 20px;
+  color: black;
+  font-size: 14px;
+  font-weight: lighter;
+  letter-spacing: 1px;
+}
+
+/*.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  border-color: black;
   text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  border-color: black;
   text-align: start;
+}*/
+
+.navbar-brand {
+  font-size: 18px;
+}
+
+.form-control {
+  width: 400px;
+  border-color: black;
+  border-radius: 1px;
+}
+
+.btn-primary {
+  width: 275px;
 }

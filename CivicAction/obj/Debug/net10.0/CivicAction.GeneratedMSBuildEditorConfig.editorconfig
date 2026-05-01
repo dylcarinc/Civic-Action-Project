@@ -19,133 +19,133 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = CivicAction
 build_property.RootNamespace = CivicAction
-build_property.ProjectDir = /Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/
+build_property.ProjectDir = /Users/brysondelozier/Civic-Action-Project/CivicAction/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction
+build_property.MSBuildProjectDirectory = /Users/brysondelozier/Civic-Action-Project/CivicAction
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Accounts/Create.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Accounts/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudHMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Accounts/Delete.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Accounts/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudHMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Accounts/Details.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Accounts/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudHMvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Accounts/Edit.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Accounts/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudHMvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Accounts/Index.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Accounts/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Error.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Index.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Login.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Logout.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9nb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Privacy.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Projects/Create.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Projects/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvamVjdHMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Projects/Delete.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Projects/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvamVjdHMvRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Projects/Details.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Projects/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvamVjdHMvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Projects/Edit.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Projects/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvamVjdHMvRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Projects/Index.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Projects/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvamVjdHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Register.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Updates/Create.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Updates/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXBkYXRlcy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Updates/Delete.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Updates/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXBkYXRlcy9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Updates/Details.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Updates/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXBkYXRlcy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Updates/Edit.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Updates/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXBkYXRlcy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Updates/Index.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Updates/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVXBkYXRlcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Verifications/Create.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Verifications/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmVyaWZpY2F0aW9ucy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Verifications/Delete.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Verifications/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmVyaWZpY2F0aW9ucy9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Verifications/Details.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Verifications/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmVyaWZpY2F0aW9ucy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Verifications/Edit.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Verifications/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmVyaWZpY2F0aW9ucy9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Verifications/Index.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Verifications/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmVyaWZpY2F0aW9ucy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/_ViewImports.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/_ViewStart.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/Pages/Shared/_Layout.cshtml]
+[/Users/brysondelozier/Civic-Action-Project/CivicAction/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ut1aa5f0k3

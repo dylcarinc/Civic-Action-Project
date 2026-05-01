@@ -6723,19 +6723,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/dylancarter/.nuget/packages/": {}
+    "/Users/brysondelozier/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/CivicAction.csproj",
+      "projectUniqueName": "/Users/brysondelozier/Civic-Action-Project/CivicAction/CivicAction.csproj",
       "projectName": "CivicAction",
-      "projectPath": "/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/CivicAction.csproj",
-      "packagesPath": "/Users/dylancarter/.nuget/packages/",
-      "outputPath": "/Users/dylancarter/Documents/GitHub/Civic-Action-Project/CivicAction/obj/",
+      "projectPath": "/Users/brysondelozier/Civic-Action-Project/CivicAction/CivicAction.csproj",
+      "packagesPath": "/Users/brysondelozier/.nuget/packages/",
+      "outputPath": "/Users/brysondelozier/Civic-Action-Project/CivicAction/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/dylancarter/.nuget/NuGet/NuGet.Config"
+        "/Users/brysondelozier/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
