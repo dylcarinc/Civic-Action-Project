@@ -13,22 +13,6 @@
     <div class="col-md-4">
         <div asp-validation-summary="All" class="text-danger"></div>
         
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="alert alert-danger">
-                <h4>Validation Errors:</h4>
-                <ul>
-                    @foreach (var modelState in ViewData.ModelState.Values)
-                    {
-                        @foreach (var error in modelState.Errors)
-                        {
-                            <li>@error.ErrorMessage</li>
-                        }
-                    }
-                </ul>
-            </div>
-        }
-        
         <form method="post">
             <div class="form-group">
                 <label asp-for="Project.Title" class="control-label"></label>
@@ -60,16 +44,8 @@
                 <input asp-for="Project.End" class="form-control" type="date" />
                 <span asp-validation-for="Project.End" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Project.IsApproved" />
-                    @Html.DisplayNameFor(model => model.Project.IsApproved)
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Project.IsWorkshop" />
-                    @Html.DisplayNameFor(model => model.Project.IsWorkshop)
+
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
