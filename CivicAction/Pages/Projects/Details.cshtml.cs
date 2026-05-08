@@ -68,7 +68,7 @@ namespace CivicAction.Pages.Projects
             {
                 return NotFound();
             }
-
+            ModelState.Remove("ReviewFeedback");
             if (!ModelState.IsValid)
             {
                 Project = project;
@@ -97,6 +97,8 @@ namespace CivicAction.Pages.Projects
 
         public async Task<IActionResult> OnPostReviewAsync(int? id, string decision)
         {
+            ModelState.Remove("NewUpdate.Description");
+            ModelState.Remove("NewUpdate.HoursDone");
             if (id == null)
             {
                 return NotFound();
