@@ -2,60 +2,107 @@
 @model CivicAction.Pages.Accounts.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Student Details";
 }
 
-<h1>Details</h1>
+<h1>Student Details</h1>
 
 <div>
-    <h4>Account</h4>
+    <h4>@Model.Account.FirstMidName @Model.Account.LastName</h4>
     <hr />
+
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.LastName)
-        </dt>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Account.Email</dd>
+
+        <dt class="col-sm-2">Grade</dt>
+        <dd class="col-sm-10">@Model.Account.Grade</dd>
+
+        <dt class="col-sm-2">School</dt>
+        <dd class="col-sm-10">@Model.Account.School</dd>
+
+        <dt class="col-sm-2">Total Projects</dt>
+        <dd class="col-sm-10">@Model.Account.Projects.Count</dd>
+
+        <dt class="col-sm-2">Total Hours Logged</dt>
+        <dd class="col-sm-10">@Model.Account.Projects.SelectMany(p => p.Updates).Sum(u => u.HoursDone)</dd>
+
+        <dt class="col-sm-2">Organizations</dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.FirstMidName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.FirstMidName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Password)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Password)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Grade)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Grade)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.School)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.School)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.IsAdmin)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.IsAdmin)
+            @string.Join(", ", Model.Account.Projects.Select(p => p.Organization).Where(o => !string.IsNullOrWhiteSpace(o)).Distinct())
         </dd>
     </dl>
 </div>
+
+<hr />
+
+<h4>Projects</h4>
+
+@if (Model.Account.Projects.Count == 0)
+{
+    <p>This student does not have any projects yet.</p>
+}
+else
+{
+    @foreach (var project in Model.Account.Projects)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@project.Title</h5>
+
+                <p><strong>Description:</strong> @project.Description</p>
+                <p><strong>Organization:</strong> @project.Organization</p>
+                <p><strong>Required Hours:</strong> @project.Hours</p>
+                <p><strong>Start:</strong> @project.Start</p>
+                <p><strong>End:</strong> @project.End</p>
+
+                <p>
+                    <strong>Status:</strong>
+                    @if (project.IsApproved)
+                    {
+                        <span class="badge bg-success">Approved</span>
+                    }
+                    else if (project.Verifications != null && project.Verifications.Any(v => !v.IsApproved))
+                    {
+                        <span class="badge bg-danger">Denied</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Pending Review</span>
+                    }
+                </p>
+
+                <h6>Logged Hours</h6>
+
+                @if (project.Updates.Count == 0)
+                {
+                    <p>No hours logged for this project.</p>
+                }
+                else
+                {
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Hours Done</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var update in project.Updates)
+                            {
+                                <tr>
+                                    <td>@update.Description</td>
+                                    <td>@update.HoursDone</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    }
+}
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Account.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to Student Search</a>
 </div>

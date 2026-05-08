@@ -19,11 +19,38 @@ namespace CivicAction.Pages.Accounts
             _context = context;
         }
 
-        public IList<Account> Account { get;set; } = default!;
+        public IList<Account> Account { get; set; } = default!;
 
-        public async Task OnGetAsync()
+        [BindProperty(SupportsGet = true)]
+        public string? SearchTerm { get; set; }
+
+        public async Task<IActionResult> OnGetAsync()
         {
-            Account = await _context.Accounts.ToListAsync();
+            var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
+
+            if (!isAdmin)
+            {
+                return RedirectToPage("/Projects/Index");
+            }
+
+            var query = _context.Accounts
+                .Include(a => a.Projects)
+                    .ThenInclude(p => p.Updates)
+                .Where(a => !a.IsAdmin);
+
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                query = query.Where(a =>
+                    a.FirstMidName.Contains(SearchTerm) ||
+                    a.LastName.Contains(SearchTerm));
+            }
+
+            Account = await query
+                .OrderBy(a => a.LastName)
+                .ThenBy(a => a.FirstMidName)
+                .ToListAsync();
+
+            return Page();
         }
     }
 }
