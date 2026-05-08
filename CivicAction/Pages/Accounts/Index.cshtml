@@ -2,71 +2,62 @@
 @model CivicAction.Pages.Accounts.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Student Search";
 }
 
-<h1>Index</h1>
+<h1>Student Search</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].FirstMidName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].Grade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].School)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Account[0].IsAdmin)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Account) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstMidName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.School)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<form method="get">
+    <div class="form-group">
+        <label asp-for="SearchTerm" class="control-label">Search by student name</label>
+        <input asp-for="SearchTerm" class="form-control" />
+    </div>
+
+    <div class="form-group mt-2">
+        <input type="submit" value="Search" class="btn btn-primary" />
+        <a asp-page="./Index" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
+
+<hr />
+
+@if (Model.Account.Count == 0)
+{
+    <p>No students found.</p>
 }
-    </tbody>
-</table>
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Email</th>
+                <th>Grade</th>
+                <th>School</th>
+                <th>Projects</th>
+                <th>Total Hours Logged</th>
+                <th>Organizations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Account)
+            {
+                <tr>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.Id">
+                            @item.FirstMidName @item.LastName
+                        </a>
+                    </td>
+                    <td>@item.Email</td>
+                    <td>@item.Grade</td>
+                    <td>@item.School</td>
+                    <td>@item.Projects.Count</td>
+                    <td>@item.Projects.SelectMany(p => p.Updates).Sum(u => u.HoursDone)</td>
+                    <td>
+                        @string.Join(", ", item.Projects.Select(p => p.Organization).Where(o => !string.IsNullOrWhiteSpace(o)).Distinct())
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -6,7 +6,11 @@
 }
 
 <h1>Projects</h1>
-<p><a asp-page="Create">Add New Project</a></p>
+
+@if (!isAdmin)
+{
+    <p><a asp-page="Create">Add New Project</a></p>
+}
 
 <table class="table">
     <thead>
@@ -21,8 +25,7 @@
                 <th>Student</th>
             }
             <th>Status</th>
-            <th>Workshop</th>
-            <th>Actions</th>
+            <th>Review</th>
         </tr>
     </thead>
     <tbody>
@@ -52,7 +55,6 @@
                         <span class="badge bg-warning text-dark">Pending Review</span>
                     }
                 </td>
-                <td>@project.IsWorkshop</td>
                 <td>
                     <a asp-page="./Details" asp-route-id="@project.Id">Details</a>
                 </td>
