@@ -1,8 +1,13 @@
 @page
 @model CivicAction.Pages.Projects.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using CivicAction.Models
+@inject UserManager<AppUser> UserManager
+
 @{
     ViewData["Title"] = "Projects";
-    var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
+    var currentUser = await UserManager.GetUserAsync(User);
+    var isAdmin = currentUser?.IsAdmin == true;
 }
 
 <h1>Projects</h1>

@@ -1,61 +1,27 @@
 @page
 @model CivicAction.Pages.Accounts.DeleteModel
-
 @{
     ViewData["Title"] = "Delete";
 }
-
 <h1>Delete</h1>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Account</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.FirstMidName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.FirstMidName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Password)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Password)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Grade)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Grade)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.School)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.School)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.IsAdmin)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.IsAdmin)
-        </dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Account.LastName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Account.LastName)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Account.FirstMidName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Account.FirstMidName)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Account.Email)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Account.Email)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Account.Grade)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Account.Grade)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Account.School)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Account.School)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Account.IsAdmin)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Account.IsAdmin)</dd>
     </dl>
-    
     <form method="post">
         <input type="hidden" asp-for="Account.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

@@ -1,22 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using CivicAction.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CivicAction.Data;
 
-public class CivicActionContext : DbContext
+public class CivicActionContext : IdentityDbContext<AppUser>
 {
+    
     public CivicActionContext(DbContextOptions<CivicActionContext> options)
         : base(options) { }
 
-    public DbSet<Account> Accounts { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Update> Updates { get; set; }
     public DbSet<Verification> Verifications { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Account>().ToTable("Account");
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<AppUser>().ToTable("Account");
         modelBuilder.Entity<Project>().ToTable("Project");
         modelBuilder.Entity<Update>().ToTable("Update");
         modelBuilder.Entity<Verification>().ToTable("Verification");

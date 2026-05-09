@@ -1,54 +1,36 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CivicAction.Data;
+using CivicAction.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using CivicAction.Data;
-using CivicAction.Models;
 
-namespace CivicAction.Pages.Accounts
+namespace CivicAction.Pages.Accounts;
+
+[Authorize]
+public class DetailsModel(CivicActionContext context, UserManager<AppUser> userManager) : PageModel
 {
-    public class DetailsModel : PageModel
+    public AppUser Account { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(string? id)
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
+        var user = await userManager.GetUserAsync(User);
+        if (user == null || !user.IsAdmin)
+            return RedirectToPage("/Projects/Index");
 
-        public DetailsModel(CivicAction.Data.CivicActionContext context)
-        {
-            _context = context;
-        }
+        if (id == null) return NotFound();
 
-        public Account Account { get; set; } = default!;
+        var account = await context.Users
+            .Include(a => a.Projects)
+                .ThenInclude(p => p.Updates)
+            .Include(a => a.Projects)
+                .ThenInclude(p => p.Verifications)
+            .FirstOrDefaultAsync(m => m.Id == id && !m.IsAdmin);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
+        if (account is null) return NotFound();
 
-            if (!isAdmin)
-            {
-                return RedirectToPage("/Projects/Index");
-            }
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var account = await _context.Accounts
-                .Include(a => a.Projects)
-                    .ThenInclude(p => p.Updates)
-                .Include(a => a.Projects)
-                    .ThenInclude(p => p.Verifications)
-                .FirstOrDefaultAsync(m => m.Id == id && !m.IsAdmin);
-
-            if (account is not null)
-            {
-                Account = account;
-                return Page();
-            }
-
-            return NotFound();
-        }
+        Account = account;
+        return Page();
     }
 }

@@ -36,7 +36,7 @@ namespace CivicAction.Pages.Verifications
                 return NotFound();
             }
             Verification = verification;
-           ViewData["AdminID"] = new SelectList(_context.Accounts, "Id", "Id");
+           ViewData["AdminID"] = new SelectList(_context.Users, "Id", "Id");
            ViewData["ProjectID"] = new SelectList(_context.Projects, "Id", "Id");
             return Page();
         }

@@ -1,12 +1,9 @@
 @page
 @model CivicAction.Pages.Accounts.EditModel
-
 @{
     ViewData["Title"] = "Edit";
 }
-
 <h1>Edit</h1>
-
 <h4>Account</h4>
 <hr />
 <div class="row">
@@ -30,13 +27,8 @@
                 <span asp-validation-for="Account.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Account.Password" class="control-label"></label>
-                <input asp-for="Account.Password" class="form-control" />
-                <span asp-validation-for="Account.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Account.Grade" class="control-label"></label>
-                <input asp-for="Account.Grade" class="form-control" />
+                <select asp-for="Account.Grade" asp-items="Html.GetEnumSelectList<CivicAction.Models.Grade>()" class="form-control"></select>
                 <span asp-validation-for="Account.Grade" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,11 +47,9 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

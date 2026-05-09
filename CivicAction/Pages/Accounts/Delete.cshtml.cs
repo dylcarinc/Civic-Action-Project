@@ -1,62 +1,36 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CivicAction.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using CivicAction.Data;
-using CivicAction.Models;
 
-namespace CivicAction.Pages.Accounts
+namespace CivicAction.Pages.Accounts;
+
+[Authorize]
+public class DeleteModel(UserManager<AppUser> userManager) : PageModel
 {
-    public class DeleteModel : PageModel
+    [BindProperty]
+    public AppUser Account { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(string? id)
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
+        if (id == null) return NotFound();
 
-        public DeleteModel(CivicAction.Data.CivicActionContext context)
-        {
-            _context = context;
-        }
+        var account = await userManager.FindByIdAsync(id);
+        if (account is null) return NotFound();
 
-        [BindProperty]
-        public Account Account { get; set; } = default!;
+        Account = account;
+        return Page();
+    }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+    public async Task<IActionResult> OnPostAsync(string? id)
+    {
+        if (id == null) return NotFound();
 
-            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.Id == id);
+        var account = await userManager.FindByIdAsync(id);
+        if (account != null)
+            await userManager.DeleteAsync(account);
 
-            if (account is not null)
-            {
-                Account = account;
-
-                return Page();
-            }
-
-            return NotFound();
-        }
-
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var account = await _context.Accounts.FindAsync(id);
-            if (account != null)
-            {
-                Account = account;
-                _context.Accounts.Remove(Account);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

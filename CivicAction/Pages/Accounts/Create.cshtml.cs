@@ -1,58 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using CivicAction.Data;
 using CivicAction.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CivicAction.Pages.Accounts
+namespace CivicAction.Pages.Accounts;
+
+[Authorize]
+public class CreateModel(UserManager<AppUser> userManager) : PageModel
 {
-    public class CreateModel : PageModel
+    [BindProperty]
+    public AppUser Account { get; set; } = default!;
+
+    [BindProperty]
+    public string Password { get; set; } = string.Empty;
+
+    public IActionResult OnGet() => Page();
+
+    public async Task<IActionResult> OnPostAsync()
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
+        if (!ModelState.IsValid) return Page();
 
-        public CreateModel(CivicAction.Data.CivicActionContext context)
-        {
-            _context = context;
-        }
+        var result = await userManager.CreateAsync(Account, Password);
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
-
-        [BindProperty]
-        public Account Account { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach (var error in errors)
-                {
-                    Console.WriteLine($"Model Error: {error.ErrorMessage}");
-                }
-                return Page();
-            }
-
-            try
-            {
-                _context.Accounts.Add(Account);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Save Error: {ex.Message}");
-                ModelState.AddModelError("", $"Error saving account: {ex.Message}");
-                return Page();
-            }
-
+        if (result.Succeeded)
             return RedirectToPage("./Index");
-        }
+
+        foreach (var error in result.Errors)
+            ModelState.AddModelError("", error.Description);
+
+        return Page();
     }
 }

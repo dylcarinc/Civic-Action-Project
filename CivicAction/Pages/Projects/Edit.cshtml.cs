@@ -36,7 +36,7 @@ namespace CivicAction.Pages.Projects
                 return NotFound();
             }
             Project = project;
-           ViewData["StudentID"] = new SelectList(_context.Accounts, "Id", "Id");
+           ViewData["StudentID"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

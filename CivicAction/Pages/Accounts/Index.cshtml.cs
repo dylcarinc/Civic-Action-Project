@@ -1,39 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CivicAction.Data;
+using CivicAction.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using CivicAction.Data;
-using CivicAction.Models;
 
-namespace CivicAction.Pages.Accounts
+namespace CivicAction.Pages.Accounts;
+
+[Authorize]
+public class IndexModel(CivicActionContext context, UserManager<AppUser> userManager) : PageModel
 {
-    public class IndexModel : PageModel
+    public IList<AppUser> Account { get; set; } = default!;
+
+    [BindProperty(SupportsGet = true)]
+    public string? SearchTerm { get; set; }
+
+    public async Task<IActionResult> OnGetAsync()
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
-
-        public IndexModel(CivicAction.Data.CivicActionContext context)
+        try
         {
-            _context = context;
-        }
-
-        public IList<Account> Account { get; set; } = default!;
-
-        [BindProperty(SupportsGet = true)]
-        public string? SearchTerm { get; set; }
-
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
-
-            if (!isAdmin)
-            {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null || !user.IsAdmin)
                 return RedirectToPage("/Projects/Index");
-            }
 
-            var query = _context.Accounts
+            var query = context.Users
                 .Include(a => a.Projects)
                     .ThenInclude(p => p.Updates)
                 .Where(a => !a.IsAdmin);
@@ -46,11 +37,17 @@ namespace CivicAction.Pages.Accounts
             }
 
             Account = await query
-                .OrderBy(a => a.LastName)
-                .ThenBy(a => a.FirstMidName)
+                .OrderBy(a => a.LastName ?? "")
+                .ThenBy(a => a.FirstMidName ?? "")
                 .ToListAsync();
 
             return Page();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Accounts Index Error: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+            throw;
         }
     }
 }

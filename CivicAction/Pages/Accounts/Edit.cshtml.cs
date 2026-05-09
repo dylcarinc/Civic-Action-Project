@@ -1,77 +1,51 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CivicAction.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CivicAction.Data;
-using CivicAction.Models;
 
-namespace CivicAction.Pages.Accounts
+namespace CivicAction.Pages.Accounts;
+
+[Authorize]
+public class EditModel(UserManager<AppUser> userManager) : PageModel
 {
-    public class EditModel : PageModel
+    [BindProperty]
+    public AppUser Account { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(string? id)
     {
-        private readonly CivicAction.Data.CivicActionContext _context;
+        if (id == null) return NotFound();
 
-        public EditModel(CivicAction.Data.CivicActionContext context)
-        {
-            _context = context;
-        }
+        var account = await userManager.FindByIdAsync(id);
+        if (account is null) return NotFound();
 
-        [BindProperty]
-        public Account Account { get; set; } = default!;
+        Account = account;
+        return Page();
+    }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid) return Page();
 
-            var account =  await _context.Accounts.FirstOrDefaultAsync(m => m.Id == id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-            Account = account;
-            return Page();
-        }
+        var account = await userManager.FindByIdAsync(Account.Id);
+        if (account is null) return NotFound();
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+        account.FirstMidName = Account.FirstMidName;
+        account.LastName = Account.LastName;
+        account.Grade = Account.Grade;
+        account.School = Account.School;
+        account.IsAdmin = Account.IsAdmin;
+        account.Email = Account.Email;
+        account.UserName = Account.Email;
 
-            _context.Attach(Account).State = EntityState.Modified;
+        var result = await userManager.UpdateAsync(account);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AccountExists(Account.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+        if (result.Succeeded)
             return RedirectToPage("./Index");
-        }
 
-        private bool AccountExists(int id)
-        {
-            return _context.Accounts.Any(e => e.Id == id);
-        }
+        foreach (var error in result.Errors)
+            ModelState.AddModelError("", error.Description);
+
+        return Page();
     }
 }

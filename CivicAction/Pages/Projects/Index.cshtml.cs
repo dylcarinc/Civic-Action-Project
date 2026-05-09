@@ -1,24 +1,24 @@
 using CivicAction.Data;
 using CivicAction.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace CivicAction.Pages.Projects;
 
-public class IndexModel(CivicActionContext context, IHttpContextAccessor httpContext) : PageModel
+[Authorize]
+public class IndexModel(CivicActionContext context, UserManager<AppUser> userManager) : PageModel
 {
     public IList<Project> Projects { get; private set; } = [];
 
     public async Task<IActionResult> OnGetAsync()
     {
-        var accountId = httpContext.HttpContext!.Session.GetInt32("AccountId");
-        if (accountId == null)
-            return RedirectToPage("/Login");
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return RedirectToPage("/Account/Login");
 
-        var isAdmin = httpContext.HttpContext.Session.GetString("IsAdmin") == "True";
-
-        Projects = isAdmin
+        Projects = user.IsAdmin
             ? await context.Projects
                 .Include(p => p.Student)
                 .Include(p => p.Verifications)
@@ -26,7 +26,7 @@ public class IndexModel(CivicActionContext context, IHttpContextAccessor httpCon
             : await context.Projects
                 .Include(p => p.Student)
                 .Include(p => p.Verifications)
-                .Where(p => p.StudentID == accountId)
+                .Where(p => p.StudentID == user.Id)
                 .ToListAsync();
 
         return Page();

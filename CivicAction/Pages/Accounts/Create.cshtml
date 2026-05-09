@@ -1,70 +1,62 @@
 @page
 @model CivicAction.Pages.Accounts.CreateModel
+@{
+    ViewData["Title"] = "Create Account";
+}
 
-        @{
-        ViewData["Title"] = "Create";
-        }
-        
-        <h1>Create</h1>
-        
-    <h4>Account</h4>
-    <hr />
-    <div class="row">
+<h1>Create Account</h1>
+
+<hr />
+<div class="row">
     <div class="col-md-4">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <div class="form-group">
                 <label asp-for="Account.LastName" class="control-label"></label>
                 <input asp-for="Account.LastName" class="form-control" />
                 <span asp-validation-for="Account.LastName" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="Account.FirstMidName" class="control-label"></label>
                 <input asp-for="Account.FirstMidName" class="form-control" />
                 <span asp-validation-for="Account.FirstMidName" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="Account.Email" class="control-label"></label>
                 <input asp-for="Account.Email" class="form-control" />
                 <span asp-validation-for="Account.Email" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="Account.Password" class="control-label"></label>
-                <input asp-for="Account.Password" class="form-control" />
-                <span asp-validation-for="Account.Password" class="text-danger"></span>
+                <label asp-for="Password" class="control-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="Account.Grade" class="control-label"></label>
-                <select asp-for="Account.Grade" class="form-control">
+                <select asp-for="Account.Grade" asp-items="Html.GetEnumSelectList<CivicAction.Models.Grade>()" class="form-control">
                     <option value="">-- Select Grade --</option>
-                    <option value="Freshman">Freshman</option>
-                    <option value="Sophomore">Sophomore</option>
-                    <option value="Junior">Junior</option>
-                    <option value="Senior">Senior</option>
                 </select>
                 <span asp-validation-for="Account.Grade" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="Account.School" class="control-label"></label>
                 <input asp-for="Account.School" class="form-control" />
                 <span asp-validation-for="Account.School" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Account.IsAdmin" /> @Html.DisplayNameFor(model => model.Account.IsAdmin)
-                </label>
-            </div>
+            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Back to Accounts</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

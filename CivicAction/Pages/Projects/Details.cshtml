@@ -1,9 +1,13 @@
 @page
 @model CivicAction.Pages.Projects.DetailsModel
+@using Microsoft.AspNetCore.Identity
+@using CivicAction.Models
+@inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
-    var isAdmin = HttpContext.Session.GetString("IsAdmin") == "True";
+    var currentUser = await UserManager.GetUserAsync(User);
+    var isAdmin = currentUser?.IsAdmin == true;
 }
 
 <h1>Details</h1>
