@@ -34,6 +34,7 @@ public class DetailsModel(CivicActionContext context, UserManager<AppUser> userM
 
         Project = project;
         Updates = project.Updates.ToList();
+        NewUpdate.Date = DateOnly.FromDateTime(DateTime.Now);
         return Page();
     }
 
@@ -42,7 +43,7 @@ public class DetailsModel(CivicActionContext context, UserManager<AppUser> userM
     if (id == null) return NotFound();
 
     ModelState.Remove("ReviewFeedback");
-    ModelState.Remove("NewUpdate.StudentID"); // add this
+    ModelState.Remove("NewUpdate.StudentID");
 
     var project = await context.Projects
         .Include(p => p.Updates)
@@ -64,6 +65,21 @@ public class DetailsModel(CivicActionContext context, UserManager<AppUser> userM
         var user = await userManager.GetUserAsync(User);
         NewUpdate.ProjectID = project.Id;
         NewUpdate.StudentID = user?.Id ?? project.StudentID;
+        var startDateTime = new DateTime(NewUpdate.Date.Year, NewUpdate.Date.Month, NewUpdate.Date.Day, NewUpdate.StartTime.Hour, NewUpdate.StartTime.Minute, NewUpdate.StartTime.Second);
+        var endDateTime = new DateTime(NewUpdate.Date.Year, NewUpdate.Date.Month, NewUpdate.Date.Day, NewUpdate.EndTime.Hour, NewUpdate.EndTime.Minute, NewUpdate.EndTime.Second);
+        if (endDateTime <= startDateTime)
+        {
+            endDateTime = endDateTime.AddDays(1);
+        }
+        var timeSpan = endDateTime - startDateTime;
+        NewUpdate.HoursDone = timeSpan.TotalHours;
+        if (NewUpdate.HoursDone <= 0)
+        {
+            ModelState.AddModelError("", "End time must be after start time.");
+            Project = project;
+            Updates = project.Updates.ToList();
+            return Page();
+        }
         context.Updates.Add(NewUpdate);
         await context.SaveChangesAsync();
     }
