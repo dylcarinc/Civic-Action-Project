@@ -16,19 +16,28 @@ public class DetailsModel(CivicActionContext context, UserManager<AppUser> userM
     public async Task<IActionResult> OnGetAsync(string? id)
     {
         var user = await userManager.GetUserAsync(User);
-        if (user == null || !user.IsAdmin)
-            return RedirectToPage("/Projects/Index");
 
-        if (id == null) return NotFound();
+        if (user == null || !user.IsAdmin)
+        {
+            return RedirectToPage("/Projects/Index");
+        }
+
+        if (id == null)
+        {
+            return NotFound();
+        }
 
         var account = await context.Users
             .Include(a => a.Projects)
-                .ThenInclude(p => p.Updates)
-            .Include(a => a.Projects)
                 .ThenInclude(p => p.Verifications)
+            .Include(a => a.VolunteerOrganizations)
+                .ThenInclude(o => o.VolunteerHours)
             .FirstOrDefaultAsync(m => m.Id == id && !m.IsAdmin);
 
-        if (account is null) return NotFound();
+        if (account is null)
+        {
+            return NotFound();
+        }
 
         Account = account;
         return Page();

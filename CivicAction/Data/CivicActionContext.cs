@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CivicAction.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace CivicAction.Data;
 
@@ -14,6 +13,8 @@ public class CivicActionContext : IdentityDbContext<AppUser>
     public DbSet<Project> Projects { get; set; }
     public DbSet<Update> Updates { get; set; }
     public DbSet<Verification> Verifications { get; set; }
+    public DbSet<VolunteerOrganization> VolunteerOrganizations { get; set; }
+    public DbSet<VolunteerHour> VolunteerHours { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,9 +23,9 @@ public class CivicActionContext : IdentityDbContext<AppUser>
         modelBuilder.Entity<Project>().ToTable("Project");
         modelBuilder.Entity<Update>().ToTable("Update");
         modelBuilder.Entity<Verification>().ToTable("Verification");
+        modelBuilder.Entity<VolunteerOrganization>().ToTable("VolunteerOrganization");
+        modelBuilder.Entity<VolunteerHour>().ToTable("VolunteerHour");
 
-        // Verification.AdminID is a FK to Account, but Account also has
-        // a Projects collection - so we need to tell EF which FK goes where
         modelBuilder.Entity<Verification>()
             .HasOne(v => v.Admin)
             .WithMany()
@@ -47,6 +48,18 @@ public class CivicActionContext : IdentityDbContext<AppUser>
             .HasOne(u => u.Project)
             .WithMany(p => p.Updates)
             .HasForeignKey(u => u.ProjectID)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<VolunteerOrganization>()
+            .HasOne(v => v.Student)
+            .WithMany(a => a.VolunteerOrganizations)
+            .HasForeignKey(v => v.StudentID)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<VolunteerHour>()
+            .HasOne(v => v.VolunteerOrganization)
+            .WithMany(o => o.VolunteerHours)
+            .HasForeignKey(v => v.VolunteerOrganizationID)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

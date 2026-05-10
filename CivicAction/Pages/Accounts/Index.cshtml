@@ -35,8 +35,8 @@ else
                 <th>Grade</th>
                 <th>School</th>
                 <th>Projects</th>
-                <th>Total Hours Logged</th>
-                <th>Organizations</th>
+                <th>Total Volunteer Hours</th>
+                <th>Volunteer Organizations</th>
             </tr>
         </thead>
         <tbody>
@@ -52,9 +52,9 @@ else
                     <td>@item.Grade</td>
                     <td>@item.School</td>
                     <td>@item.Projects.Count</td>
-                    <td>@item.Projects.SelectMany(p => p.Updates).Sum(u => u.HoursDone)</td>
+                    <td>@item.VolunteerOrganizations.SelectMany(o => o.VolunteerHours).Sum(h => h.Hours)</td>
                     <td>
-                        @string.Join(", ", item.Projects.Select(p => p.Organization).Where(o => !string.IsNullOrWhiteSpace(o)).Distinct())
+                        @string.Join(", ", item.VolunteerOrganizations.Select(o => o.Name).Distinct())
                     </td>
                 </tr>
             }

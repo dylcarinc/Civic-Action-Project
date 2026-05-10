@@ -16,4 +16,5 @@ public class AppUser : IdentityUser
     public bool IsAdmin { get; set; }
 
     public ICollection<Project> Projects { get; set; } = new List<Project>();
+    public ICollection<VolunteerOrganization> VolunteerOrganizations { get; set; } = new List<VolunteerOrganization>();
 }

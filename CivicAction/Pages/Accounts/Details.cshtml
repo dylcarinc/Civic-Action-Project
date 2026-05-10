@@ -24,15 +24,63 @@
         <dt class="col-sm-2">Total Projects</dt>
         <dd class="col-sm-10">@Model.Account.Projects.Count</dd>
 
-        <dt class="col-sm-2">Total Hours Logged</dt>
-        <dd class="col-sm-10">@Model.Account.Projects.SelectMany(p => p.Updates).Sum(u => u.HoursDone)</dd>
+        <dt class="col-sm-2">Total Volunteer Hours</dt>
+        <dd class="col-sm-10">@Model.Account.VolunteerOrganizations.SelectMany(o => o.VolunteerHours).Sum(h => h.Hours)</dd>
 
-        <dt class="col-sm-2">Organizations</dt>
+        <dt class="col-sm-2">Volunteer Organizations</dt>
         <dd class="col-sm-10">
-            @string.Join(", ", Model.Account.Projects.Select(p => p.Organization).Where(o => !string.IsNullOrWhiteSpace(o)).Distinct())
+            @string.Join(", ", Model.Account.VolunteerOrganizations.Select(o => o.Name).Distinct())
         </dd>
     </dl>
 </div>
+
+<hr />
+
+<h4>Volunteer Hours</h4>
+
+@if (Model.Account.VolunteerOrganizations.Count == 0)
+{
+    <p>This student has not logged any volunteer organizations yet.</p>
+}
+else
+{
+    @foreach (var organization in Model.Account.VolunteerOrganizations)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@organization.Name</h5>
+                <p><strong>Total Hours:</strong> @organization.VolunteerHours.Sum(h => h.Hours)</p>
+
+                @if (organization.VolunteerHours.Count == 0)
+                {
+                    <p>No hours logged for this organization.</p>
+                }
+                else
+                {
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Work Completed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var hour in organization.VolunteerHours.OrderByDescending(h => h.WorkDate))
+                            {
+                                <tr>
+                                    <td>@hour.WorkDate.ToShortDateString()</td>
+                                    <td>@hour.Hours</td>
+                                    <td>@hour.WorkDescription</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    }
+}
 
 <hr />
 
@@ -71,33 +119,6 @@ else
                         <span class="badge bg-warning text-dark">Pending Review</span>
                     }
                 </p>
-
-                <h6>Logged Hours</h6>
-
-                @if (project.Updates.Count == 0)
-                {
-                    <p>No hours logged for this project.</p>
-                }
-                else
-                {
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Hours Done</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var update in project.Updates)
-                            {
-                                <tr>
-                                    <td>@update.Description</td>
-                                    <td>@update.HoursDone</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
             </div>
         </div>
     }

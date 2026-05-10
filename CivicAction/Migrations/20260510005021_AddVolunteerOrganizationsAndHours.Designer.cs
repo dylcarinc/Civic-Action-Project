@@ -3,6 +3,7 @@ using System;
 using CivicAction.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CivicAction.Migrations
 {
     [DbContext(typeof(CivicActionContext))]
-    partial class CivicActionContextModelSnapshot : ModelSnapshot
+    [Migration("20260510005021_AddVolunteerOrganizationsAndHours")]
+    partial class AddVolunteerOrganizationsAndHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -149,14 +152,8 @@ namespace CivicAction.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<TimeOnly>("EndTime")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("HoursDone")
@@ -167,9 +164,6 @@ namespace CivicAction.Migrations
 
                     b.Property<int>("ProjectID")
                         .HasColumnType("INTEGER");
-
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("StudentID")
                         .IsRequired()

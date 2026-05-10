@@ -1,0 +1,69 @@
+@page
+@model CivicAction.Pages.Volunteer.IndexModel
+
+@{
+    ViewData["Title"] = "Volunteer Hours";
+}
+
+<h1>Volunteer Hours</h1>
+
+<p>Add volunteer organizations and keep track of your hours.</p>
+
+<div class="row">
+    <div class="col-md-5">
+        <h4>Add Organization</h4>
+
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="NewOrganizationName" class="control-label">Organization Name</label>
+                <input asp-for="NewOrganizationName" class="form-control" />
+                <span asp-validation-for="NewOrganizationName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Add Organization" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<h4>Your Organizations</h4>
+
+@if (Model.Organizations.Count == 0)
+{
+    <p>No organizations have been added yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th>Total Hours</th>
+                <th>Open</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var organization in Model.Organizations)
+            {
+                <tr>
+                    <td>@organization.Name</td>
+                    <td>@organization.VolunteerHours.Sum(h => h.Hours)</td>
+                    <td>
+                        <a asp-page="/Volunteer/Details" asp-route-id="@organization.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p><strong>Total Volunteer Hours:</strong> @Model.TotalHours</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
