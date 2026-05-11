@@ -54,7 +54,14 @@ else
                     <td>@item.Projects.Count</td>
                     <td>@item.VolunteerOrganizations.SelectMany(o => o.VolunteerHours).Sum(h => h.Hours)</td>
                     <td>
-                        @string.Join(", ", item.VolunteerOrganizations.Select(o => o.Name).Distinct())
+                        @if (item.VolunteerOrganizations.Count == 0)
+                        {
+                            <span>No organizations yet</span>
+                        }
+                        else
+                        {
+                            @string.Join(", ", item.VolunteerOrganizations.Select(o => o.Name).Distinct())
+                        }
                     </td>
                 </tr>
             }

@@ -18,36 +18,34 @@ public class IndexModel(CivicActionContext context, UserManager<AppUser> userMan
 
     public async Task<IActionResult> OnGetAsync()
     {
-        try
+        var user = await userManager.GetUserAsync(User);
+
+        if (user == null || !user.IsAdmin)
         {
-            var user = await userManager.GetUserAsync(User);
-            if (user == null || !user.IsAdmin)
-                return RedirectToPage("/Projects/Index");
-
-            var query = context.Users
-                .Include(a => a.Projects)
-                    .ThenInclude(p => p.Updates)
-                .Where(a => !a.IsAdmin);
-
-            if (!string.IsNullOrWhiteSpace(SearchTerm))
-            {
-                query = query.Where(a =>
-                    a.FirstMidName.Contains(SearchTerm) ||
-                    a.LastName.Contains(SearchTerm));
-            }
-
-            Account = await query
-                .OrderBy(a => a.LastName ?? "")
-                .ThenBy(a => a.FirstMidName ?? "")
-                .ToListAsync();
-
-            return Page();
+            return RedirectToPage("/Projects/Index");
         }
-        catch (Exception ex)
+
+
+
+        var query = context.Users
+            .Include(a => a.Projects)
+            .Include(a => a.VolunteerOrganizations)
+                .ThenInclude(o => o.VolunteerHours)
+            .Where(a => !a.IsAdmin);
+
+        if (!string.IsNullOrWhiteSpace(SearchTerm))
         {
-            System.Diagnostics.Debug.WriteLine($"Accounts Index Error: {ex.Message}");
-            System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
-            throw;
+            query = query.Where(a =>
+                a.FirstMidName.Contains(SearchTerm) ||
+                a.LastName.Contains(SearchTerm));
+                
         }
+
+        Account = await query
+            .OrderBy(a => a.LastName)
+            .ThenBy(a => a.FirstMidName)
+            .ToListAsync();
+
+        return Page();
     }
 }
